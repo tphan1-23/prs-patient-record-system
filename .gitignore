@@ -218,3 +218,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# SQLite databases created by running the app
+*.db

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patient Record System</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f5f6f8; color: #222; }
+    header { background: #2c4a6e; color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+    header a { color: #fff; margin-left: 14px; }
+    main { max-width: 860px; margin: 20px auto; padding: 0 16px; }
+    .card { background: #fff; border-radius: 6px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px #0002; }
+    .msg { padding: 10px 14px; border-radius: 4px; margin-bottom: 12px; }
+    .msg.error { background: #fde8e8; color: #8a1c1c; }
+    .msg.info { background: #e6f2e6; color: #1d5a1d; }
+    .msg.warn { background: #fff4d6; color: #7a5a00; }
+    label { display: block; margin-top: 10px; font-weight: 600; }
+    input, select, textarea { width: 100%; padding: 7px; box-sizing: border-box; margin-top: 4px; }
+    button { margin-top: 12px; padding: 8px 16px; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 6px; border-bottom: 1px solid #ddd; vertical-align: top; }
+    .muted { color: #666; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Patient Record System <span class="muted" style="color:#cde">(synthetic data only)</span></strong>
+    <nav>
+      {% if g.user %}
+        {{ g.user.username }} ({{ g.user.role }})
+        <a href="{{ url_for('prs.home') }}">Home</a>
+        <a href="{{ url_for('prs.register') }}">Register patient</a>
+        {% if g.user.is_manager %}<a href="{{ url_for('prs.audit') }}">Audit log</a>{% endif %}
+        <a href="{{ url_for('prs.logout') }}">Sign out</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="msg {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

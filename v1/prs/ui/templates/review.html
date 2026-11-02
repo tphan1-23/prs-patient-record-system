@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Review category</h2>
+  <p class="muted">Your note was saved as Uncategorized.</p>
+  <p><strong>Note ({{ note.visit_date }}):</strong> {{ note.note_text }}</p>
+
+  {% if suggestion %}
+  <div class="msg info">
+    <strong>{{ label }}:</strong> {{ suggestion.category }}
+    <div class="muted">Source: {{ suggestion.source }}</div>
+  </div>
+  <form method="post" style="display:inline">
+    <input type="hidden" name="category" value="{{ suggestion.category }}">
+    <button name="action" value="accept">Accept suggestion</button>
+  </form>
+  {% else %}
+  <div class="msg warn">AI Suggestion Unavailable. You can pick a category by hand.</div>
+  {% endif %}
+
+  <form method="post">
+    <label>{% if suggestion %}Or reject it and choose a different category{% else %}Choose a category{% endif %}
+      <select name="category">
+        {% for c in categories %}<option>{{ c }}</option>{% endfor %}
+      </select>
+    </label>
+    <button name="action" value="choose">Save chosen category</button>
+    <button name="action" value="skip">Keep Uncategorized</button>
+  </form>
+</div>
+{% endblock %}

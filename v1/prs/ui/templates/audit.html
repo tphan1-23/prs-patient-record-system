@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Audit log (most recent 200)</h2>
+  <table>
+    <tr><th>When</th><th>Who</th><th>Action</th><th>Detail</th></tr>
+    {% for e in entries %}
+    <tr><td>{{ e.ts }}</td><td>{{ e.username }}</td><td>{{ e.action }}</td><td>{{ e.detail }}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

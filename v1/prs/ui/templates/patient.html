@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>{{ patient.name }}</h2>
+  <table>
+    <tr><th>Patient ID</th><td>{{ patient.patient_id }}</td></tr>
+    <tr><th>Date of birth</th><td>{{ patient.date_of_birth }}</td></tr>
+    <tr><th>Phone</th><td>{{ patient.phone }}</td></tr>
+    <tr><th>Address</th><td>{{ patient.address }}</td></tr>
+    <tr><th>Emergency contact</th><td>{{ patient.emergency_contact }}</td></tr>
+  </table>
+  <p><a href="{{ url_for('prs.edit', patient_id=patient.patient_id) }}">Update details</a></p>
+</div>
+
+<div class="card">
+  <h3>Add visit note</h3>
+  <form method="post" action="{{ url_for('prs.add_note', patient_id=patient.patient_id) }}">
+    <label>Visit date <input name="visit_date" type="date" max="{{ today }}" value="{{ today }}" required></label>
+    <label>Note (1 to 2,000 characters) <textarea name="note_text" rows="4" maxlength="2000" required></textarea></label>
+    <button type="submit">Save note</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Visit history (newest first)</h3>
+  {% if notes %}
+  <table>
+    <tr><th>Date</th><th>Note</th><th>Staff</th><th>Category</th></tr>
+    {% for n in notes %}
+    <tr>
+      <td>{{ n.visit_date }}</td>
+      <td>{{ n.note_text }}</td>
+      <td>{{ n.staff_user }}</td>
+      <td>{{ n.category_label }}{% if n.category_source %} <span class="muted">({{ n.category_source }})</span>{% endif %}
+        {% if not n.category %}<br><a href="{{ url_for('prs.review', note_id=n.note_id) }}">categorize</a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">No visit notes yet.</p>{% endif %}
+</div>
+
+<div class="card">
+  <h3>Change history</h3>
+  {% if changes %}
+  <table>
+    <tr><th>When</th><th>Who</th><th>Field</th><th>Old</th><th>New</th></tr>
+    {% for c in changes %}
+    <tr><td>{{ c.changed_at }}</td><td>{{ c.changed_by }}</td><td>{{ c.field_name }}</td><td>{{ c.old_value }}</td><td>{{ c.new_value }}</td></tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">No changes recorded.</p>{% endif %}
+</div>
+{% endblock %}
