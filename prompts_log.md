@@ -4,7 +4,7 @@ Rule: GenAI is used for **code only**. All written analysis is done by the group
 
 ## Prompt 1 - Version 1 generation (Person 1)
 
-Tool: Gemini (gemini-3.5-flash-lite)
+Tool: Claude
 Target: `v1/`
 
 Prompt (exact text as sent):
