@@ -42,6 +42,7 @@ Tool: Claude
 Target: `v2/`
 
 Prompt (exact text as sent):
+
 Hi! I'm working on a group school project. My teammate already generated Version 1 (v1) of our Patient Record System using Python, Flask, and SQLite. My task is to create Version 2 (v2) by improving the existing code based on our code review.
 I have attached v1 source code and the five weaknesses our group identified.
 Please refactor v1 to address these weaknesses:
