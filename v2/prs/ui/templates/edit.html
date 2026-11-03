@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Update {{ patient.patient_id }}</h2>
+  <p class="muted">Patient ID cannot be changed.</p>
+  <form method="post">
+    <label>Name <input name="name" value="{{ request.form.get('name', patient.name) }}" required></label>
+    <label>Date of birth <input name="date_of_birth" type="date" value="{{ request.form.get('date_of_birth', patient.date_of_birth) }}" required></label>
+    <label>Phone <input name="phone" value="{{ request.form.get('phone', patient.phone) }}"></label>
+    <label>Address <input name="address" value="{{ request.form.get('address', patient.address) }}"></label>
+    <label>Emergency contact <input name="emergency_contact" value="{{ request.form.get('emergency_contact', patient.emergency_contact) }}"></label>
+    <button type="submit">Save changes</button>
+    <a href="{{ url_for('prs.patient_page', patient_id=patient.patient_id) }}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
