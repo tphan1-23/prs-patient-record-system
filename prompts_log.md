@@ -5,6 +5,7 @@ Rule: GenAI is used for **code only**. All written analysis is done by the group
 ## Prompt 1 - Version 1 generation (Person 1)
 
 Tool: Claude
+
 Target: `v1/`
 
 Prompt (exact text as sent):
@@ -35,7 +36,9 @@ Prompt (exact text as sent):
 > Please give me the file tree first, then the full code for every file, then a requirements.txt, and a README with step by step instructions for installing and running it, including the demo logins. Add docstrings and basic error handling.
 
 ## Prompts for Version 2 (collected from Person 3)
+
 Tool: Claude
+
 Target: `v2/`
 
 Prompt (exact text as sent):
